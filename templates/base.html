@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Dashboard{% endblock %}</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <nav>
+      <a href="{{ url_for('dashboard') }}">Dashboard</a> |
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+
+    <div class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %} {% for
+      category, message in messages %}
+      <p class="flash {{ category }}">{{ message }}</p>
+      {% endfor %} {% endwith %} {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>

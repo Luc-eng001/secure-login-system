@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Register</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <!-- Add reCAPTCHA script -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  </head>
+  <body>
+    <h2>Register</h2>
+    <form method="POST" action="{{ url_for('register') }}">
+      {{ form.hidden_tag() }}
+      <p>
+        Already have an account? <a href="{{ url_for('login') }}">Login here</a>
+      </p>
+
+      <p>
+        {{ form.username.label }}<br />
+        {{ form.username(size=32) }}<br />
+        {% for error in form.username.errors %}
+        <span class="error">{{ error }}</span>
+        {% endfor %}
+      </p>
+
+      <p>
+        {{ form.email.label }}<br />
+        {{ form.email(size=32) }}<br />
+        {% for error in form.email.errors %}
+        <span class="error">{{ error }}</span>
+        {% endfor %}
+      </p>
+
+      <p>
+        {{ form.password.label }}<br />
+        {{ form.password(size=32) }}<br />
+        {% for error in form.password.errors %}
+        <span class="error">{{ error }}</span>
+        {% endfor %}
+      </p>
+      <p>{{ form.recaptcha }}</p>
+
+      <p>
+        {{ form.role.label }}<br />
+        {{ form.role() }}<br />
+        {% for error in form.role.errors %}
+        <span class="error">{{ error }}</span>
+        {% endfor %}
+      </p>
+
+      <p>{{ form.submit() }}</p>
+    </form>
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %}
+    <ul class="flashes">
+      {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %} {% endwith %}
+  </body>
+</html>
